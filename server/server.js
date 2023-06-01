@@ -7,8 +7,8 @@ const LocalStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const User = require("./models/User");
-const questionsRoute = require("./routes/questionsRoute");
-const answersRoute = require("./routes/answersRoute");
+const Answers = require("./models/Answers");
+const Questions = require("./models/Questions");
 require("dotenv/config");
 // --------------------------- END OF ALL IMPORTS ---------------------------------
 const app = express();
@@ -114,9 +114,58 @@ const isAuthenticated = (req, res, next) => {
   res.status(401).json({ message: "Unauthorized" });
 };
 
-// Protected Routes for Questions and Answers
-app.use("/Questions", isAuthenticated, questionsRoute);
-app.use("/Answers", isAuthenticated, answersRoute);
+// Route to retrieve the username
+app.get("/username", isAuthenticated, (req, res) => {
+  try {
+    const username = req.user.username;
+    res.json({ message: username });
+  } catch (error) {
+    res.json({ error: `User Not Found ${error}` });
+  }
+});
+
+// Logout
+app.get("/logout", isAuthenticated, (req, res) => {
+  req.logOut(function (err) {
+    if (err) {
+      console.error("Error during logout:", err);
+      res.status(500).json({ message: "Internal server error" });
+    } else {
+      res.json({ message: "Logout successful" });
+    }
+  });
+});
+
+// Endpoint to POST answers
+app.post("/submit", isAuthenticated, async (req, res) => {
+  try {
+    const { user, answer } = req.body;
+    const createdAnswers = await Answers.create({ user, answer });
+    res.json(createdAnswers);
+  } catch (error) {
+    res.json({ message: error });
+  }
+});
+
+// Endpoint to GET question using id
+app.get("/:questionId", async (req, res) => {
+  try {
+    const question = await Questions.findById(req.params.questionId);
+    res.json(question);
+  } catch (error) {
+    res.json({ message: error });
+  }
+});
+
+// Endpoint to GET questions
+app.get("/questions", isAuthenticated, async (req, res) => {
+  try {
+    const questions = await Questions.find();
+    res.json(questions);
+  } catch (error) {
+    res.json({ message: error });
+  }
+});
 
 // Listening
 const PORT = 4000;
