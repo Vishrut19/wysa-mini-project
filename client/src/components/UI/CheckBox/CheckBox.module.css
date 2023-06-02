@@ -1,0 +1,17 @@
+.checkbox {
+  color: wheat;
+  text-align: center;
+  padding: 20px;
+  margin: 5px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.checkbox:hover {
+  cursor: pointer;
+}
+
+.arrow {
+  position: absolute;
+  right: 40px;
+}
