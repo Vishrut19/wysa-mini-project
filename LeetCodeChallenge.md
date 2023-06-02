@@ -1,5 +1,6 @@
 # LeetCode Question
 
+```
 var obj = {
 a: {
 b: {
@@ -14,11 +15,13 @@ console.log(obj.findPath('a.b.d')); // undefined
 console.log(obj.findPath('a.c')); // undefined
 console.log(obj.findPath('a.b.c.d')); // undefined
 console.log(obj.findPath('a.b.c.d.e')); // undefined
+```
 
 # LeetCode Solutions
 
 ## Solution 1 - Recursive Function
 
+```
 var obj = {
 a: {
 b: {
@@ -48,9 +51,11 @@ console.log(obj.findPath('a.b.d')); // undefined
 console.log(obj.findPath('a.c')); // undefined
 console.log(obj.findPath('a.b.c.d')); // undefined
 console.log(obj.findPath('a.b.c.d.e')); // undefined
+```
 
 ## Solution 2 - Using reduce() method
 
+```
 var obj = {
 a: {
 b: {
@@ -71,9 +76,11 @@ console.log(obj.findPath('a.b.d')); // undefined
 console.log(obj.findPath('a.c')); // undefined
 console.log(obj.findPath('a.b.c.d')); // undefined
 console.log(obj.findPath('a.b.c.d.e')); // undefined
+```
 
 ## Solution 3 - Using a loop
 
+```
 var obj = {
 a: {
 b: {
@@ -103,3 +110,4 @@ console.log(obj.findPath('a.b.d')); // undefined
 console.log(obj.findPath('a.c')); // undefined
 console.log(obj.findPath('a.b.c.d')); // undefined
 console.log(obj.findPath('a.b.c.d.e')); // undefined
+```
